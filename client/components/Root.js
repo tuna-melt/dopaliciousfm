@@ -5,7 +5,7 @@ class Root extends React.Component {
     super();
     window.onSpotifyWebPlaybackSDKReady = () => {
       const token =
-        'BQAmaD6CL3qmtadMXtkyK56JYzgKkZxtPO4hUHupJtWA0F5OZbY69va3fmbnlYP9ELEOqt3TDjhWkEjzUAy1DAuVcSzTy_SNoyNhpUB9UOWIHuReGDsslpYl9wELIeXc9mPxLTuIpEglNbQqKwn2jmh90R2yr9pqUzE';
+        'BQDPch0Rl2ezkCoZkDq0mHupYb3CnwXchdJP3dL5rFv4oIbK2dKDdYSgq77w5k6Yunx79yuoaq0-10e3spWBuNLicxZUgI2opuhpFyNFRx1c1qWMHu0dUevueWZCCDYkEEk5DBArTqwFkegj-ajI5vIl4nLQCKFKYmQ';
       const player = new Spotify.Player({
         name: 'Web Playback SDK Quick Start Player',
         getOAuthToken: cb => {
