@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   name: String,
-  spotifyId: Int32Array,
+  spotifyId: String,
 });
 
-module.exports = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 const CommentSchema = new Schema(
   {
@@ -16,7 +16,7 @@ const CommentSchema = new Schema(
   { capped: { size: 1024, max: 100, autoIndexId: true } }
 );
 
-module.exports = mongoose.model('Comment', CommentSchema);
+const Comment = mongoose.model('Comment', CommentSchema);
 
 const ReactionSchema = new Schema({
   content: String,
@@ -25,4 +25,10 @@ const ReactionSchema = new Schema({
   comment: { type: Schema.Types.ObjectId, ref: 'Comment' },
 });
 
-module.exports = mongoose.model('Reaction', ReactionSchema);
+const Reaction = mongoose.model('Reaction', ReactionSchema);
+
+module.exports = {
+  User,
+  Reaction,
+  Comment,
+};
