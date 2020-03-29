@@ -1,6 +1,9 @@
 // Basic Routes
+require('../secrets');
 const path = require('path');
 const express = require('express');
+const { db } = require('./db');
+
 const app = express();
 
 // Default port is 3000
@@ -25,5 +28,10 @@ app.get('*', function(req, res, next) {
 
 // Set server to listen on PORT
 app.listen(PORT, () => {
-  console.log('Listening on port', PORT);
+  console.log(
+    `
+    
+    Listening on port ${PORT}
+  `
+  );
 });
