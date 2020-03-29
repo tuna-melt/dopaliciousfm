@@ -14,11 +14,8 @@ db.once('open', () => {
     `);
 });
 
-const { User, Comment, Reaction } = require('./Models');
+require('./Models');
 
 module.exports = {
   db,
-  User,
-  Comment,
-  Reaction,
 };

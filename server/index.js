@@ -21,6 +21,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Static Middleware
 app.use(express.static(path.join(__dirname, '../public')));
 
+app.use('/api', require('./api'));
+
 // Route catchall
 app.get('*', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../public/index.html'));
@@ -30,7 +32,7 @@ app.get('*', function(req, res, next) {
 app.listen(PORT, () => {
   console.log(
     `
-    
+
     Listening on port ${PORT}
   `
   );

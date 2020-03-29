@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   spotifyId: String,
 });
 
-const User = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
 
 const CommentSchema = new Schema(
   {
@@ -16,7 +16,7 @@ const CommentSchema = new Schema(
   { capped: { size: 1024, max: 100, autoIndexId: true } }
 );
 
-const Comment = mongoose.model('Comment', CommentSchema);
+module.exports = mongoose.model('Comment', CommentSchema);
 
 const ReactionSchema = new Schema({
   content: String,
@@ -25,10 +25,4 @@ const ReactionSchema = new Schema({
   comment: { type: Schema.Types.ObjectId, ref: 'Comment' },
 });
 
-const Reaction = mongoose.model('Reaction', ReactionSchema);
-
-module.exports = {
-  User,
-  Reaction,
-  Comment,
-};
+module.exports = mongoose.model('Reaction', ReactionSchema);
