@@ -16,14 +16,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Static Middleware
-app.use(express.static(path.join(__dirname, '../public')))
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Route catchall
-app.get('*', function (req, res, next) {
+app.get('*', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 // Set server to listen on PORT
 app.listen(PORT, () => {
-    console.log('Listening on port', PORT)
-})
+  console.log('Listening on port', PORT);
+});
