@@ -12,10 +12,10 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const { newComment } = req.body;
-    const comment = await Comment.create({ newComment });
-    console.log(comment);
-    res.send(comment);
+    const { comment } = req.body;
+    let newComment = await Comment.create({ comment });
+    newComment = Comment.find({ _id: newComment._id }).populate('user');
+    res.send(newComment);
   } catch (err) {
     next(err);
   }

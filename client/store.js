@@ -17,6 +17,16 @@ export const addComment = comment => {
   };
 };
 
+const LOGIN = 'LOGIN';
+export const login = user => {
+  return { type: LOGIN, user };
+};
+
+const LOGOUT = 'LOGOUT';
+export const logout = () => {
+  return { type: LOGOUT };
+};
+
 // Thunks
 export const getComments = () => {
   return async dispatch => {
@@ -47,7 +57,7 @@ export const postComment = (comment, user) => {
 };
 
 // Reducer
-const initialState = { comments: [] };
+const initialState = { comments: [], user: {} };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -60,6 +70,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         comments: [...state.comments, action.comment],
+      };
+    case LOGIN:
+      return {
+        ...state,
+        user: action.user,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        user: {},
       };
     default:
       return state;

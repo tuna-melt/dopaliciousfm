@@ -3,6 +3,8 @@ require('../secrets');
 const path = require('path');
 const express = require('express');
 const { db } = require('./db');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 // Default port is 3000
 const PORT = process.env.PORT || 3000;
@@ -30,6 +32,16 @@ app.use(morgan('dev'));
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Session
+app.use(
+  session({
+    secret: process.env.SESSIONSECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: db }),
+  })
+);
 
 // Static Middleware
 app.use(express.static(path.join(__dirname, '../public')));
