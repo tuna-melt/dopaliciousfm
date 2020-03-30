@@ -8,13 +8,10 @@ const UserSchema = new Schema({
 
 module.exports = mongoose.model('User', UserSchema);
 
-const CommentSchema = new Schema(
-  {
-    content: String,
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
-  },
-  { capped: { size: 1024, max: 100, autoIndexId: true } }
-);
+const CommentSchema = new Schema({
+  content: String,
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
+});
 
 module.exports = mongoose.model('Comment', CommentSchema);
 
