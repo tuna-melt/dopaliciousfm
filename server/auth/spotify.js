@@ -15,8 +15,12 @@ router.get(
 router.get(
   '/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
+  async function(req, res) {
+    // Successful authentication, add refresh code to user and redirect
+    await User.findOneAndUpdate(
+      { _id: req.user._id },
+      { code: req.query.code }
+    );
     res.redirect('/');
   }
 );
@@ -29,9 +33,12 @@ passport.use(
       callbackURL: 'http://localhost:3000/auth/spotify/callback',
     },
     function(accessToken, refreshToken, expires_in, profile, done) {
-      console.log(profile);
       User.findOrCreate(
-        { name: profile.display_name, spotifyId: profile.id },
+        {
+          name: profile.displayName,
+          spotifyId: profile.id,
+          imageURL: profile.photos[0],
+        },
         function(err, user) {
           return done(err, user);
         }

@@ -4,6 +4,8 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   name: String,
   spotifyId: String,
+  imageURL: String,
+  code: String,
 });
 
 UserSchema.statics.findOrCreate = function findOrCreate(condition, callback) {
@@ -28,7 +30,7 @@ module.exports = mongoose.model('Comment', CommentSchema);
 
 const ReactionSchema = new Schema({
   content: String,
-  imgUrl: String,
+  imgURL: String,
   user: { type: Schema.Types.ObjectId, ref: 'User' },
   comment: { type: Schema.Types.ObjectId, ref: 'Comment' },
 });
