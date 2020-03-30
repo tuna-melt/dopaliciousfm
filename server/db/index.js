@@ -1,3 +1,4 @@
+require('../../secrets');
 const mongoose = require('mongoose');
 const mongoURI = 'mongodb://' + process.env.dbuser + '@localhost/dopaliscious';
 
@@ -15,7 +16,6 @@ db.once('open', () => {
 });
 
 require('./Models');
-
 module.exports = {
   db,
 };
