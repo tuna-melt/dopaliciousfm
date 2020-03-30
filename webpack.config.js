@@ -1,9 +1,9 @@
 module.exports = {
-  entry: './client/App.js', 
+  entry: ['babel-polyfill', './client/App.js'],
   mode: 'development',
   output: {
     path: __dirname,
-    filename: './public/bundle.js'
+    filename: './public/bundle.js',
   },
   devtool: 'source-maps',
   module: {
@@ -12,9 +12,9 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
-      }
-    ]
-  }
-}
+          loader: 'babel-loader',
+        },
+      },
+    ],
+  },
+};
