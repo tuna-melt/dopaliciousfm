@@ -47,19 +47,19 @@ export const postComment = (comment, user) => {
 };
 
 // Reducer
-const initialState = { messages: [] };
+const initialState = { comments: [] };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_COMMENTS_FROM_SERVER:
       return {
         ...state,
-        messages: action.messages,
+        comments: action.comments,
       };
     case ADD_COMMENT:
       return {
         ...state,
-        messages: [...state.messages, action.message],
+        comments: [...state.comments, action.comment],
       };
     default:
       return state;
