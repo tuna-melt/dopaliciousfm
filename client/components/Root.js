@@ -1,11 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import Feed from './Feed';
+import { getComments } from '../store';
 
 class Root extends React.Component {
   constructor() {
     super();
+    this.mountMusicPlayer();
+  }
+
+  mountMusicPlayer() {
     window.onSpotifyWebPlaybackSDKReady = () => {
-      const token =
-        'BQDPch0Rl2ezkCoZkDq0mHupYb3CnwXchdJP3dL5rFv4oIbK2dKDdYSgq77w5k6Yunx79yuoaq0-10e3spWBuNLicxZUgI2opuhpFyNFRx1c1qWMHu0dUevueWZCCDYkEEk5DBArTqwFkegj-ajI5vIl4nLQCKFKYmQ';
+      const token = '';
       const player = new Spotify.Player({
         name: 'Web Playback SDK Quick Start Player',
         getOAuthToken: cb => {
@@ -43,12 +49,30 @@ class Root extends React.Component {
       });
 
       // Connect to the player!
-      player.connect();
+      // player.connect();
     };
   }
+
+  componentDidMount() {
+    this.props.loadComments();
+  }
+
   render() {
-    return 'Hello World';
+    const comments = this.props.comments || [];
+    return <Feed comments={comments} />;
   }
 }
 
-export default Root;
+const mapState = state => {
+  return { comments: state.comments };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    loadComments: () => {
+      dispatch(getComments());
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(Root);
