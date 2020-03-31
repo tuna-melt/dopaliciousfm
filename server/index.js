@@ -5,6 +5,19 @@ const express = require('express');
 const { db } = require('./db');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const passport = require('passport');
+
+// passport registration
+passport.serializeUser((user, done) => done(null, user.id));
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await db.model('User').findOne({ _id: id });
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
 
 // Default port is 3000
 const PORT = process.env.PORT || 3000;
@@ -46,7 +59,13 @@ app.use(
 // Static Middleware
 app.use(express.static(path.join(__dirname, '../public')));
 
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Routes
 app.use('/api', require('./api'));
+app.use('/auth', require('./auth'));
 
 // Route catchall
 app.get('*', function(req, res, next) {

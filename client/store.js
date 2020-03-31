@@ -56,6 +56,19 @@ export const postComment = (comment, user) => {
   };
 };
 
+export const me = () => async dispatch => {
+  try {
+    const { data } = await axios.get('/auth/me');
+    if (data) {
+      dispatch(login(data));
+    } else {
+      dispatch(login({}));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // Reducer
 const initialState = { comments: [], user: {} };
 
