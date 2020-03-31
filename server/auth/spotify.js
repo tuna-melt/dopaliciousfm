@@ -8,19 +8,15 @@ const SpotifyStrategy = require('passport-spotify').Strategy;
 router.get(
   '/',
   passport.authenticate('spotify', {
-    scope: ['user-read-email', 'user-read-private'],
+    scope: ['streaming', 'user-read-email', 'user-read-private'],
   })
 );
 
 router.get(
   '/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
-  async function(req, res) {
-    // Successful authentication, add refresh code to user and redirect
-    await User.findOneAndUpdate(
-      { _id: req.user._id },
-      { code: req.query.code }
-    );
+  (req, res) => {
+    // Successful authentication, redirect home
     res.redirect('/');
   }
 );
@@ -38,6 +34,8 @@ passport.use(
           name: profile.displayName,
           spotifyId: profile.id,
           imageURL: profile.photos[0],
+          accessToken,
+          refreshToken,
         },
         function(err, user) {
           return done(err, user);
