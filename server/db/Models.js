@@ -5,7 +5,8 @@ const UserSchema = new Schema({
   name: String,
   spotifyId: String,
   imageURL: String,
-  code: String,
+  accessToken: String,
+  refreshToken: String,
 });
 
 UserSchema.statics.findOrCreate = function findOrCreate(condition, callback) {
