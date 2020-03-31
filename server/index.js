@@ -12,7 +12,7 @@ passport.serializeUser((user, done) => done(null, user.id));
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await db.model('User').find({ _id: id });
+    const user = await db.model('User').findOne({ _id: id });
     done(null, user);
   } catch (err) {
     done(err);
