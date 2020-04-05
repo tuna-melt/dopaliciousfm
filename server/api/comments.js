@@ -12,10 +12,15 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const { comment } = req.body;
-    let newComment = await Comment.create({ comment });
-    newComment = Comment.find({ _id: newComment._id }).populate('user');
-    res.send(newComment);
+    if (req.user._id) {
+      const { content } = req.body;
+      const comment = { content, user: req.user._id };
+      const newComment = await Comment.create(comment);
+      res.send(await Comment.findOne({ _id: newComment._id }).populate('user'));
+    } else {
+      const err = new Error('Must be logged In');
+      throw err;
+    }
   } catch (err) {
     next(err);
   }
