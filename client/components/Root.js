@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Feed from './Feed';
+import Chat from './Chat';
 import { getComments, me } from '../store';
 import SpotifyPlayer from './SpotifyPlayer';
 
@@ -15,19 +15,14 @@ class Root extends React.Component {
   }
 
   render() {
-    const comments = this.props.comments || [];
     return (
       <React.Fragment>
-        <Feed comments={comments} />
+        <Chat />
         <SpotifyPlayer />
       </React.Fragment>
     );
   }
 }
-
-const mapState = state => {
-  return { comments: state.comments };
-};
 
 const mapDispatch = dispatch => {
   return {
@@ -40,4 +35,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(Root);
+export default connect(null, mapDispatch)(Root);
