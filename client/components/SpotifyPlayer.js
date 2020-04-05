@@ -1,5 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import {
+  transferPlayer,
+  addToQueue,
+  moveNext,
+  playPlayer,
+  playSong,
+} from '../spotifyActions';
 
 const SpotifyPlayer = props => {
   const mountMusicPlayer = token => {
@@ -31,8 +39,8 @@ const SpotifyPlayer = props => {
       });
 
       // Ready
-      player.addListener('ready', ({ device_id }) => {
-        console.log('Ready with Device ID', device_id);
+      player.addListener('ready', async ({ device_id }) => {
+        playSong(device_id, 'spotify:track:7zTTDkkLkJ2iHAqq1daDCr', props.user);
       });
 
       // Not Ready
