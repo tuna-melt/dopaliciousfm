@@ -2,8 +2,19 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import axios from 'axios';
 import socket from './socket';
+import { playSong } from './spotifyActions';
 
 // Actions
+const SET_DEVICE_ID = 'SET_DEVICE_ID';
+export const setPlayer = deviceId => {
+  return { type: SET_DEVICE_ID, deviceId };
+};
+
+const NEW_SONG = 'NEW_SONG';
+export const newSong = uri => {
+  return { type: NEW_SONG, uri };
+};
+
 const GOT_COMMENTS_FROM_SERVER = 'GOT_COMMENTS_FROM_SERVER';
 const gotComments = comments => {
   return { type: GOT_COMMENTS_FROM_SERVER, comments };
@@ -69,10 +80,17 @@ export const me = () => async dispatch => {
 };
 
 // Reducer
-const initialState = { comments: [], user: {} };
+const initialState = { comments: [], user: {}, deviceId: '', currentSong: '' };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_DEVICE_ID:
+      return { ...state, deviceId: action.deviceId };
+    case NEW_SONG:
+      if (state.deviceId !== '') {
+        playSong(state.deviceId, action.uri, state.user);
+      }
+      return { ...state, currentSong: action.uri };
     case GOT_COMMENTS_FROM_SERVER:
       return {
         ...state,
