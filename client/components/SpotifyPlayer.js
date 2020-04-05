@@ -1,19 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import {
-  transferPlayer,
-  addToQueue,
-  moveNext,
-  playPlayer,
-  playSong,
-} from '../spotifyActions';
+
+import { setPlayer } from '../store';
 
 const SpotifyPlayer = props => {
   const mountMusicPlayer = token => {
     if (window.Spotify) {
       const player = new window.Spotify.Player({
-        name: 'Web Playback SDK Quick Start Player',
+        name: 'Dopaliscious Radio',
         getOAuthToken: cb => {
           cb(token);
         },
@@ -39,8 +33,9 @@ const SpotifyPlayer = props => {
       });
 
       // Ready
-      player.addListener('ready', async ({ device_id }) => {
-        playSong(device_id, 'spotify:track:7zTTDkkLkJ2iHAqq1daDCr', props.user);
+      player.addListener('ready', ({ device_id }) => {
+        console.log('player is ready');
+        props.setDevice(device_id);
       });
 
       // Not Ready
@@ -65,4 +60,10 @@ const mapState = state => {
   return { user: state.user };
 };
 
-export default connect(mapState, null)(SpotifyPlayer);
+const mapDispatch = dispatch => {
+  return {
+    setDevice: deviceId => dispatch(setPlayer(deviceId)),
+  };
+};
+
+export default connect(mapState, mapDispatch)(SpotifyPlayer);
