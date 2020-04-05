@@ -8,7 +8,12 @@ const SpotifyStrategy = require('passport-spotify').Strategy;
 router.get(
   '/',
   passport.authenticate('spotify', {
-    scope: ['streaming', 'user-read-email', 'user-read-private'],
+    scope: [
+      'streaming',
+      'user-read-email',
+      'user-read-private',
+      'user-modify-playback-state',
+    ],
   })
 );
 
