@@ -40,12 +40,11 @@ export const getComments = () => {
   };
 };
 
-export const postComment = (comment, user) => {
+export const postComment = comment => {
   return async dispatch => {
     try {
-      const response = await axios.post('/api/comment', {
+      const response = await axios.post('/api/comments', {
         content: comment,
-        user: user.id,
       });
       const newComment = response.data;
       dispatch(addComment(newComment));
