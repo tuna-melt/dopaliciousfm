@@ -41,11 +41,11 @@ module.exports = io => {
           if (index < tracks.length) {
             console.log(`
             
-            Playing '${tracks[index].name}'
+            Playing "${tracks[index].name}" by ${tracks[index].artists[0].name}
             
             `);
             io.emit('new-song', tracks[index]);
-
+            position_ms = 0;
             currentSong = tracks[index];
             setInterval(() => {
               position_ms += 1000;
@@ -56,7 +56,7 @@ module.exports = io => {
             }, tracks[index].duration_ms);
           }
         };
-        playSongs(1);
+        playSongs(0);
       });
     })
     .catch(err => {

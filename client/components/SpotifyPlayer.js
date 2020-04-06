@@ -28,9 +28,7 @@ const SpotifyPlayer = props => {
       });
 
       // Playback status updates
-      player.addListener('player_state_changed', state => {
-        console.log(state);
-      });
+      player.addListener('player_state_changed', state => {});
 
       // Ready
       player.addListener('ready', ({ device_id }) => {
