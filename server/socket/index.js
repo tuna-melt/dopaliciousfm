@@ -1,15 +1,11 @@
 require('../../secrets');
-require('axios-debug-log');
 const QueryString = require('query-string');
 const btoa = require('btoa');
 const axios = require('axios');
 
 module.exports = io => {
-  io.on('connection', socket => {
-    socket.on('new-message', message => {
-      socket.broadcast.emit('new-message', message);
-    });
-  });
+  let currentSong = {};
+  let position_ms = 0;
 
   const data = QueryString.stringify({
     grant_type: 'client_credentials',
@@ -48,7 +44,13 @@ module.exports = io => {
             Playing '${tracks[index].name}'
             
             `);
-            io.emit('new-song', tracks[index].uri);
+            io.emit('new-song', tracks[index]);
+
+            currentSong = tracks[index];
+            setInterval(() => {
+              position_ms += 1000;
+            }, 1000);
+
             setTimeout(() => {
               playSongs(index + 1);
             }, tracks[index].duration_ms);
@@ -60,4 +62,14 @@ module.exports = io => {
     .catch(err => {
       console.log(err);
     });
+
+  io.on('connection', socket => {
+    socket.on('new-message', message => {
+      socket.broadcast.emit('new-message', message);
+    });
+
+    socket.on('get-current-song', () => {
+      socket.emit('send-current-song', { currentSong, position_ms });
+    });
+  });
 };
