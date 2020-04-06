@@ -15,13 +15,15 @@ export const transferPlayer = async (deviceId, user) => {
   );
 };
 
-export const playSong = async (deviceId, uri, user) => {
+export const playSong = async (deviceId, song, user, position_ms = 0) => {
   const options = {
     url: 'https://api.spotify.com/v1/me/player/play?device_id=' + deviceId,
     method: 'put',
     data: {
-      uris: [uri],
+      uris: [song.uri],
+      position_ms,
     },
+
     headers: {
       Authorization: 'Bearer ' + user.accessToken,
     },

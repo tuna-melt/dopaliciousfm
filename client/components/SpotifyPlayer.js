@@ -34,7 +34,6 @@ const SpotifyPlayer = props => {
 
       // Ready
       player.addListener('ready', ({ device_id }) => {
-        console.log('player is ready');
         props.setDevice(device_id);
       });
 

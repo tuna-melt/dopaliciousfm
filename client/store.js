@@ -10,9 +10,14 @@ export const setPlayer = deviceId => {
   return { type: SET_DEVICE_ID, deviceId };
 };
 
+const CURRENT_SONG = 'CURRENT_SONG';
+export const currentSong = (song, position_ms) => {
+  return { type: CURRENT_SONG, song, position_ms };
+};
+
 const NEW_SONG = 'NEW_SONG';
-export const newSong = uri => {
-  return { type: NEW_SONG, uri };
+export const newSong = song => {
+  return { type: NEW_SONG, song };
 };
 
 const GOT_COMMENTS_FROM_SERVER = 'GOT_COMMENTS_FROM_SERVER';
@@ -80,17 +85,23 @@ export const me = () => async dispatch => {
 };
 
 // Reducer
-const initialState = { comments: [], user: {}, deviceId: '', currentSong: '' };
+const initialState = { comments: [], user: {}, deviceId: '', currentSong: {} };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_DEVICE_ID:
+      socket.emit('get-current-song');
       return { ...state, deviceId: action.deviceId };
     case NEW_SONG:
       if (state.deviceId !== '') {
-        playSong(state.deviceId, action.uri, state.user);
+        playSong(state.deviceId, action.song, state.user);
       }
-      return { ...state, currentSong: action.uri };
+      return { ...state, currentSong: action.song };
+    case CURRENT_SONG:
+      if (state.deviceId !== '') {
+        playSong(state.deviceId, action.song, state.user, action.position_ms);
+      }
+      return { ...state, currentSong: action.song };
     case GOT_COMMENTS_FROM_SERVER:
       return {
         ...state,
