@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 const Chat = props => {
   const { comments } = props;
   return (
-    <React.Fragment>
+    <div id="chat">
       <Feed comments={comments} />
       <TextBar />
-    </React.Fragment>
+    </div>
   );
 };
 
