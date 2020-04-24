@@ -32,6 +32,7 @@ const SpotifyPlayer = props => {
 
       // Ready
       player.addListener('ready', ({ device_id }) => {
+        console.log('player is ready');
         props.setDevice(device_id);
       });
 
@@ -45,16 +46,38 @@ const SpotifyPlayer = props => {
     }
   };
 
-  const { user } = props;
-  if (user && user.accessToken) {
+  const { user, deviceId, currentSong } = props;
+  if (user && user.accessToken && !deviceId) {
     mountMusicPlayer(props.user.accessToken);
   }
 
-  return <h1>Player</h1>;
+  let albumImg = '';
+  if (currentSong.name) {
+    albumImg = currentSong.album.images[1];
+  }
+  return (
+    <div id="player">
+      {props.currentSong.name && (
+        <React.Fragment>
+          <img className="cover" src={albumImg.url} />
+          <div className="info">
+            <h3>{props.currentSong.name}</h3>
+            <h3>
+              {props.currentSong.artists.map(artist => artist.name).join(' ')}
+            </h3>
+          </div>
+        </React.Fragment>
+      )}
+    </div>
+  );
 };
 
 const mapState = state => {
-  return { user: state.user };
+  return {
+    user: state.user,
+    currentSong: state.currentSong,
+    deviceId: state.deviceId,
+  };
 };
 
 const mapDispatch = dispatch => {

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import Chat from './Chat';
 import { getComments, me } from '../store';
 import SpotifyPlayer from './SpotifyPlayer';
-
+import Visualizer from './Visualizer';
+import Topbar from './Topbar';
 class Root extends React.Component {
   constructor() {
     super();
@@ -17,8 +18,14 @@ class Root extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Chat />
-        <SpotifyPlayer />
+        <Topbar />
+        <div className="flex-container">
+          <div id="music" className="flex-container">
+            <Visualizer />
+            <SpotifyPlayer />
+          </div>
+          <Chat />
+        </div>
       </React.Fragment>
     );
   }

@@ -29,7 +29,8 @@ module.exports = io => {
       const getTracks = {
         method: 'get',
         url:
-          'https://api.spotify.com/v1/playlists/6n13xnZ4wf4vuOyklYrUfi/tracks',
+          'https://api.spotify.com/v1/playlists/6G4yXvqdNkk1p76aK0K8Qj/tracks',
+
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
@@ -47,11 +48,12 @@ module.exports = io => {
             io.emit('new-song', tracks[index]);
             position_ms = 0;
             currentSong = tracks[index];
-            setInterval(() => {
+            const interval = setInterval(() => {
               position_ms += 1000;
             }, 1000);
 
             setTimeout(() => {
+              clearInterval(interval);
               playSongs(index + 1);
             }, tracks[index].duration_ms);
           }
@@ -69,6 +71,7 @@ module.exports = io => {
     });
 
     socket.on('get-current-song', () => {
+      console.log('getting current song');
       socket.emit('send-current-song', { currentSong, position_ms });
     });
   });

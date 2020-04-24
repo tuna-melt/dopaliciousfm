@@ -27,7 +27,7 @@ class TextBar extends React.Component {
 
   render() {
     return (
-      <form id="new-message-form" onSubmit={this.handleSubmit}>
+      <form id="new-comment-form" onSubmit={this.handleSubmit}>
         <div className="input-group input-group-lg">
           <input
             className="form-control"

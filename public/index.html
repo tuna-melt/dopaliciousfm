@@ -2,18 +2,16 @@
 <head>
   <!--local CSS dependencies-->
   <link rel="stylesheet" href="/styles.css" />
-
-  <!--local JS dependencies, from Webpack -->
-  <script src="/bundle.js" defer></script>
 </head>
 <html>
   <body>
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
-    <script>
-      window.onSpotifyWebPlaybackSDKReady = () => {
-        window.Spotify = Spotify;
-      }
-    </script>
+    <!-- Spotify SDK Load -->
+    <script src="https://sdk.scdn.co/spotify-player.js">
+      </script>
+
+    <!-- Load bundle after SDK is ready -->
+    <script src="ready.js"></script>
+  
     <!--root React div-->
     <div id="app">
     </div>
