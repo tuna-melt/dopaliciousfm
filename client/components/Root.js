@@ -19,8 +19,8 @@ class Root extends React.Component {
     return (
       <React.Fragment>
         <Topbar />
-        <div className="flex-container">
-          <div id="music" className="flex-container">
+        <div id="content">
+          <div id="music">
             <Visualizer />
             <SpotifyPlayer />
           </div>

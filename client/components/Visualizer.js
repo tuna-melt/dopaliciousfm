@@ -2,10 +2,14 @@ import React from 'react';
 
 const Visualizer = props => {
   return (
-    <img
-      src="https://media.giphy.com/media/HOX80nO0h8Na/source.gif"
-      className="visualizer"
-    />
+    <React.Fragment>
+      <img
+        className="viz-img"
+        src="https://media.giphy.com/media/1J4X5chVxtBFS/giphy.gif"
+      />
+      <div className="viz-img"></div>
+      <div className="viz-img"></div>
+    </React.Fragment>
   );
 };
 
