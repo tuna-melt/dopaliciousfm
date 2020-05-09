@@ -1,15 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Chat from './Chat';
-import { getComments, me } from '../store';
-import SpotifyPlayer from './SpotifyPlayer';
-import Visualizer from './Visualizer';
-import Topbar from './Topbar';
-class Root extends React.Component {
-  constructor() {
-    super();
-  }
 
+import { getComments, me } from './store';
+
+import Routes from './routes';
+import Topbar from './components/Topbar';
+
+class Root extends React.Component {
   componentDidMount() {
     this.props.loadComments();
     this.props.authMe();
@@ -18,14 +15,7 @@ class Root extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Topbar />
-        <div id="content">
-          <div id="music">
-            <Visualizer />
-            <SpotifyPlayer />
-          </div>
-          <Chat />
-        </div>
+        <Routes />
       </React.Fragment>
     );
   }
