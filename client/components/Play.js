@@ -1,6 +1,7 @@
 import React from 'react';
 import SpotifyPlayer from './SpotifyPlayer';
 import Topbar from './Topbar';
+import Chat from './Chat';
 
 import { connect } from 'react-redux';
 
@@ -61,6 +62,7 @@ const Play = props => {
       <div id="music">
         <SpotifyPlayer />
       </div>
+      <Chat />
     </div>
   );
 };
