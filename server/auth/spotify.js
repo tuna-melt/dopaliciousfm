@@ -41,6 +41,7 @@ passport.use(
           imageURL: profile.photos[0],
           accessToken,
           refreshToken,
+          tokenExpiration: expires_in * 1000 + Date.now(),
         },
         function(err, user) {
           return done(err, user);

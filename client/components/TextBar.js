@@ -37,11 +37,6 @@ class TextBar extends React.Component {
             value={this.state.comment}
             onChange={this.handleChange}
           />
-          <span className="input-group-btn">
-            <button className="btn btn-default" type="submit">
-              Chat!
-            </button>
-          </span>
         </div>
       </form>
     );

@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
 import Feed from './Feed';
 import TextBar from './TextBar';
-import { connect } from 'react-redux';
 
 const Chat = props => {
   const { comments } = props;
+
+  const [isVisible, setVisible] = useState(false);
+
   return (
-    <div id="chat">
+    <div id="chat" className={isVisible ? 'visible' : ''}>
+      <button
+        type="button"
+        id="toggleChat"
+        onClick={() => setVisible(!isVisible)}
+      />
       <Feed comments={comments} />
       <TextBar />
     </div>
