@@ -1,11 +1,15 @@
 import React, { useRef, useEffect } from 'react';
 
 const TextSVG = props => {
+  const svg = useRef(null);
   const mask = useRef(null);
   const rect = useRef(null);
   const text = useRef(null);
 
-  const maskId = props.value.split(' ').join('-');
+  const maskId = props.value
+    .replace(/[^a-zA-Z ]/g, '')
+    .split(' ')
+    .join('-');
   const styles = {
     mask: `url(#${maskId})`,
     WebkitMask: `url(#${maskId})`,
@@ -25,6 +29,8 @@ const TextSVG = props => {
       rect.current.setAttribute('height', height);
       mask.current.setAttribute('width', width);
       mask.current.setAttribute('height', height);
+      svg.current.setAttribute('height', height);
+      svg.current.setAttribute('width', width);
       text.current.setAttribute('x', width / 2);
       text.current.setAttribute('y', height / 2);
     }
@@ -33,7 +39,7 @@ const TextSVG = props => {
   useEffect(sizeSVG);
 
   return (
-    <svg className="svg-displayer">
+    <svg className="svg-displayer" ref={svg}>
       <defs>
         <mask id={maskId}>
           <rect fill="#fff" ref={mask} />
