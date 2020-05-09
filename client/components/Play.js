@@ -62,7 +62,7 @@ const Play = props => {
       <div id="music">
         <SpotifyPlayer />
       </div>
-      <Chat />
+      {/* <Chat />s */}
     </div>
   );
 };

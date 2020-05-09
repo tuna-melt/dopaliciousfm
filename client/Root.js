@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { getComments, me } from './store';
 
 import Routes from './routes';
-import Topbar from './components/Topbar';
 
 class Root extends React.Component {
   componentDidMount() {
