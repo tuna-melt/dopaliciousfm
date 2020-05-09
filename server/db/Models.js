@@ -7,6 +7,7 @@ const UserSchema = new Schema({
   imageURL: String,
   accessToken: String,
   refreshToken: String,
+  tokenExpiration: Number,
 });
 
 UserSchema.statics.findOrCreate = function findOrCreate(condition, callback) {
