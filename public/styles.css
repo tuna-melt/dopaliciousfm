@@ -11,7 +11,7 @@ body,
 }
 
 #app {
-  background-image: url('dope-background.jpg');
+  background-image: url('dope-pink.jpg');
   background-size: 100%;
 }
 
@@ -22,8 +22,8 @@ body,
   text-align: center;
   display: flex;
   align-items: center;
-  color: #ec1a00;
-  background: rgba(255, 255, 255, 0.817);
+  color: #ffffff;
+  /* background: rgba(255, 255, 255, 0.817); */
 }
 
 #topbar h1 {
@@ -34,9 +34,41 @@ body,
 }
 
 #content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 20px;
+  width: 100%;
+}
+
+#login {
+  margin: 0 auto;
+  width: 60vh;
+  height: 80vh;
+  padding: 20vh 0;
+  text-align: center;
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#login h1 {
+  margin: 40px 0;
+  font-size: 60px;
+}
+
+#login button {
+  height: 35px;
+  width: 200px;
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  cursor: pointer;
+
+  transition: background 0.2s;
+}
+
+#login button:hover {
+  background: #fff;
+  transition: background 0.2s;
 }
 
 #music,
@@ -98,11 +130,18 @@ body,
 }
 
 #player {
-  background: rgba(255, 255, 255, 0.817);
+  /* background: rgba(255, 255, 255, 0.817); */
   grid-column: span 3;
   display: flex;
   align-items: center;
   height: 30vh;
+}
+
+#song-title {
+  width: 100%;
+  font-size: 70px;
+  text-align: center;
+  color: #ffff;
 }
 
 .info {
@@ -126,4 +165,13 @@ img.icon {
   width: 35px;
   margin: 0 10px 0 0;
   border-radius: 100%;
+}
+
+#song-title {
+  width: 100%;
+}
+
+#song-title rect {
+  mask: url('#mask');
+  -webkit-mask: url('#mask');
 }
