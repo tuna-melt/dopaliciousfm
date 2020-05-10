@@ -22,7 +22,7 @@ const SpotifyPlayer = props => {
 
 const mapState = state => {
   return {
-    currentSong: state.currentSong,
+    currentSong: state.player.currentSong,
   };
 };
 

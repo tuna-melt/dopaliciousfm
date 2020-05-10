@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from './store';
 
 export const transferPlayer = async (deviceId, user) => {
   await axios.put(
@@ -15,7 +16,9 @@ export const transferPlayer = async (deviceId, user) => {
   );
 };
 
-export const playSong = async (deviceId, song, user, position_ms = 0) => {
+export const playSong = async (player, user, song, position_ms = 0) => {
+  const { deviceId } = player;
+
   const options = {
     url: 'https://api.spotify.com/v1/me/player/play?device_id=' + deviceId,
     method: 'put',
@@ -29,7 +32,7 @@ export const playSong = async (deviceId, song, user, position_ms = 0) => {
     },
   };
 
-  await axios(options);
+  await axios(options).catch(err => console.log(err));
 };
 
 export const addToQueue = async (user, uri) => {
