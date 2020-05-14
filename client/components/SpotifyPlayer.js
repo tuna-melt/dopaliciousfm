@@ -2,18 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import TextSVG from './TextSVG';
+import ProgressBar from './ProgressBar';
 
 const SpotifyPlayer = props => {
-  const { currentSong } = props;
+  const { player } = props;
 
   return (
     <div id="player">
-      {currentSong.name && (
+      {player.currentSong && player.currentSong.name && (
         <React.Fragment>
-          <TextSVG value={currentSong.name} />
-          {currentSong.artists.map(artist => {
-            return <TextSVG key={artist.name} value={artist.name} />;
-          })}
+          <TextSVG value={player.currentSong.name} />
+          <h3>
+            by{' '}
+            {player.currentSong.artists
+              .map(artist => {
+                return artist.name;
+              })
+              .join(', ')}
+          </h3>
+          <ProgressBar />
         </React.Fragment>
       )}
     </div>
@@ -22,7 +29,7 @@ const SpotifyPlayer = props => {
 
 const mapState = state => {
   return {
-    currentSong: state.player.currentSong,
+    player: state.player,
   };
 };
 
