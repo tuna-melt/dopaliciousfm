@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import { setPlayer } from '../store';
 
 const Play = props => {
+  const { user, deviceId } = props;
+
   const mountMusicPlayer = token => {
     if (window.Spotify) {
       const player = new window.Spotify.Player({
@@ -37,7 +39,7 @@ const Play = props => {
       // Ready
       player.addListener('ready', ({ device_id }) => {
         console.log('player is ready');
-        props.setDevice(device_id);
+        if (!deviceId) props.setDevice(device_id);
       });
 
       // Not Ready
@@ -50,9 +52,8 @@ const Play = props => {
     }
   };
 
-  const { user, deviceId } = props;
-
   if (user && user.accessToken && !deviceId) {
+    console.log('mounting');
     mountMusicPlayer(props.user.accessToken);
   }
 
@@ -62,7 +63,7 @@ const Play = props => {
       <div id="music">
         <SpotifyPlayer />
       </div>
-      {/* <Chat />s */}
+      <Chat />
     </div>
   );
 };
@@ -70,7 +71,7 @@ const Play = props => {
 const mapState = state => {
   return {
     user: state.user,
-    deviceId: state.deviceId,
+    deviceId: state.player.deviceId,
   };
 };
 
