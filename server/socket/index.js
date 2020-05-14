@@ -29,7 +29,7 @@ module.exports = io => {
       const getTracks = {
         method: 'get',
         url:
-          'https://api.spotify.com/v1/playlists/0Vhw1l3H8NAZsaW1g9PHU8/tracks',
+          'https://api.spotify.com/v1/playlists/4cPs8kh2e1pR4UDSAW47AW/tracks',
 
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -54,7 +54,11 @@ module.exports = io => {
 
             setTimeout(() => {
               clearInterval(interval);
-              playSongs(index + 1);
+              if (index === tracks.length - 1) {
+                playSongs(0);
+              } else {
+                playSongs(index + 1);
+              }
             }, tracks[index].duration_ms);
           }
         };
@@ -71,7 +75,6 @@ module.exports = io => {
     });
 
     socket.on('get-current-song', () => {
-      console.log('getting current song');
       socket.emit('send-current-song', { currentSong, position_ms });
     });
   });

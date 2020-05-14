@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import store, { addComment, newSong, currentSong } from './store';
+import store, { addComment, newSong, setSong } from './store';
 
 const socket = io(window.location.origin);
 
@@ -13,7 +13,7 @@ socket.on('connect', () => {
   });
 
   socket.on('send-current-song', data => {
-    store.dispatch(currentSong(data.currentSong, data.position_ms));
+    store.dispatch(setSong(data.currentSong, data.position_ms));
   });
 });
 
