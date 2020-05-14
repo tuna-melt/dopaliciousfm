@@ -14,6 +14,11 @@ export const me = () => async dispatch => {
   try {
     const { data } = await axios.get('/auth/me');
     if (data) {
+      if (data._id) {
+        setTimeout(() => {
+          dispatch(me());
+        }, data.tokenExpiration - Date.now() - 5000);
+      }
       dispatch(login(data));
     } else {
       dispatch(login({}));

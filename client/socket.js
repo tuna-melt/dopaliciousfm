@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import store, { addComment, newSong, setSong, me } from './store';
+import store, { addComment, newSong, setSong } from './store';
 
 const socket = io(window.location.origin);
 
