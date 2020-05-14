@@ -29,7 +29,7 @@ module.exports = io => {
       const getTracks = {
         method: 'get',
         url:
-          'https://api.spotify.com/v1/playlists/3MRRfFgGWAkC4XzZxMYoCQ/tracks',
+          'https://api.spotify.com/v1/playlists/4cPs8kh2e1pR4UDSAW47AW/tracks',
 
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -54,7 +54,11 @@ module.exports = io => {
 
             setTimeout(() => {
               clearInterval(interval);
-              playSongs(index + 1);
+              if (index === tracks.length - 1) {
+                playSongs(0);
+              } else {
+                playSongs(index + 1);
+              }
             }, tracks[index].duration_ms);
           }
         };
