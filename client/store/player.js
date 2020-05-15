@@ -16,7 +16,7 @@ export const setPlayer = deviceId => {
   return { type: SET_DEVICE_ID, deviceId };
 };
 
-const defaultPlayer = { currentSong: {}, deviceId: '' };
+const defaultPlayer = { currentSong: {}, deviceId: '', startPosition: 0 };
 
 export default (player = defaultPlayer, action, state) => {
   switch (action.type) {
@@ -27,10 +27,14 @@ export default (player = defaultPlayer, action, state) => {
     case NEW_SONG:
       playSong(player, state.user, action.song);
 
-      return { ...player, currentSong: action.song };
+      return { ...player, currentSong: action.song, startPosition: 0 };
     case SET_SONG:
       playSong(player, state.user, action.song, action.position_ms);
-      return { ...player, currentSong: action.song };
+      return {
+        ...player,
+        currentSong: action.song,
+        startPosition: action.position_ms,
+      };
 
     default:
       return player;
