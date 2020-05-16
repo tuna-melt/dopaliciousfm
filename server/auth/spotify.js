@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const User = require('mongoose').model('User');
-require('../../secrets');
+process.env.NODE_ENV !== 'production' && require('../../secrets');
 
 const passport = require('passport');
 const SpotifyStrategy = require('passport-spotify').Strategy;

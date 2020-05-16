@@ -1,4 +1,4 @@
-require('../../secrets');
+process.env.NODE_ENV !== 'production' && require('../../secrets');
 const QueryString = require('query-string');
 const btoa = require('btoa');
 const axios = require('axios');

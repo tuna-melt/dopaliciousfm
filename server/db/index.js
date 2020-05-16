@@ -1,10 +1,16 @@
-require('../../secrets');
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb://' + process.env.dbuser + '@localhost/dopaliscious';
+
+let mongoURI;
+
+if (process.env.NODE_ENV === 'production') {
+  mongoURI = `mongodb+srv://${process.env.dbuser}@dopecluster-oxbyl.mongodb.net/test?retryWrites=true&w=majority`;
+} else {
+  require('../../secrets');
+  mongoURI = 'mongodb://' + process.env.dbuser + '@localhost/dopaliscious';
+}
 
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
 }); //local host db
 const db = mongoose.connection;
 

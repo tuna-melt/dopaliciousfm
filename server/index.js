@@ -1,5 +1,5 @@
 // Basic Routes
-require('../secrets');
+process.env.NODE_ENV !== 'production' && require('../secrets');
 const path = require('path');
 const express = require('express');
 const { db } = require('./db');
