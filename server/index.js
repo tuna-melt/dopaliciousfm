@@ -48,11 +48,15 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use((req, res) => {
-  if (!req.secure) {
-    res.redirect('https://' + req.headers.host + req.url);
-  }
-});
+if (process.env.NODE_ENV === 'production') {
+  app.use(function(req, res, next) {
+    if (req.protocol === 'http') {
+      res.redirect('https://' + req.headers.host + req.url);
+    } else {
+      next();
+    }
+  });
+}
 
 // Session
 app.use(
