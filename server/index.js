@@ -38,13 +38,21 @@ const io = require('socket.io')(server);
 require('./socket')(io);
 
 // Logging Middleware
-const morgan = require('morgan');
-app.use(morgan('dev'));
+if (process.env.NODE_ENV !== 'production') {
+  const morgan = require('morgan');
+  app.use(morgan('dev'));
+}
 
 // JSON request body parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use((req, res) => {
+  if (!req.secure) {
+    res.redirect('https://' + req.headers.host + req.url);
+  }
+});
 
 // Session
 app.use(
