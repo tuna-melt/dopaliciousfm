@@ -26,12 +26,20 @@ router.get(
   }
 );
 
+let callback;
+
+if (process.env.NODE_ENV === 'production') {
+  callback = 'https://dopaliscious.us/auth/spotify/callback';
+} else {
+  callback = 'http://localhost:3000/auth/spotify/callback';
+}
+
 passport.use(
   new SpotifyStrategy(
     {
       clientID: process.env.SPOTIFYCLIENTID,
       clientSecret: process.env.SPOTIFYCLIENTSECRET,
-      callbackURL: 'http://localhost:3000/auth/spotify/callback',
+      callbackURL: callback,
     },
     function(accessToken, refreshToken, expires_in, profile, done) {
       User.findOrCreate(
