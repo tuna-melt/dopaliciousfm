@@ -1385,7 +1385,7 @@ var setPlayer = function setPlayer(deviceId) {
 };
 var defaultPlayer = {
   currentSong: {},
-  deviceId: '',
+  deviceId: null,
   startPosition: 0
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
