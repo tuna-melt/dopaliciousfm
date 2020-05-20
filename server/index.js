@@ -24,6 +24,9 @@ const PORT = process.env.PORT || 3000;
 
 // Set server to listen on PORT
 const app = express();
+
+if (process.env.NODE_ENV === 'production') app.set('trust proxy', true);
+
 const server = app.listen(PORT, () => {
   console.log(
     `
@@ -50,7 +53,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(function(req, res, next) {
-    if (req.protocol === 'http') {
+    if (req.get('X-Forwarded-Proto') === 'http') {
       res.redirect('https://' + req.headers.host + req.url);
     } else {
       next();
