@@ -155,6 +155,7 @@ body,
   width: 100%;
   height: 70%;
   color: #fff;
+  text-shadow: 0 0 5px #fb3f6ba5;
 }
 
 #progress-bar {
