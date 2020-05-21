@@ -39,7 +39,7 @@ const ProgressBar = props => {
 
   useInterval(() => setPosition(position + 50), 50);
 
-  useEffect(() => setPosition(player.startPosition), [player]);
+  useEffect(() => setPosition(player.startPosition), [currentSong]);
 
   return (
     <div id="progress-bar">
