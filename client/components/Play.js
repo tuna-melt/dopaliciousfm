@@ -7,10 +7,14 @@ import { connect } from 'react-redux';
 
 import { setPlayer } from '../store';
 
-const Play = props => {
-  const { user, deviceId } = props;
+class Play extends React.Component {
+  constructor() {
+    super();
+    this.spotifyPlayer = {};
+    this.mountMusicPlayer = this.mountMusicPlayer.bind(this);
+  }
 
-  const mountMusicPlayer = token => {
+  mountMusicPlayer(token) {
     if (window.Spotify) {
       const player = new window.Spotify.Player({
         name: 'Dopaliscious Radio',
@@ -18,7 +22,6 @@ const Play = props => {
           cb(token);
         },
       });
-
       // Error handling
       player.addListener('initialization_error', ({ message }) => {
         console.error(message);
@@ -39,7 +42,9 @@ const Play = props => {
       // Ready
       player.addListener('ready', ({ device_id }) => {
         console.log('player is ready');
-        if (!deviceId) props.setDevice(device_id);
+        this.spotifyPlayer = player;
+
+        if (!this.props.deviceId) this.props.setDevice(device_id);
       });
 
       // Not Ready
@@ -50,23 +55,39 @@ const Play = props => {
       // Connect to the player!
       player.connect();
     }
-  };
-
-  if (user && user.accessToken && !deviceId) {
-    console.log('mounting');
-    mountMusicPlayer(props.user.accessToken);
   }
 
-  return (
-    <div id="content">
-      <Topbar />
-      <div id="music">
-        <SpotifyPlayer />
+  componentDidUpdate() {
+    const { user } = this.props;
+
+    if (this.spotifyPlayer._options) {
+      this.spotifyPlayer._options.getOAuthToken = cb => {
+        cb(user.accessToken);
+      };
+    }
+  }
+
+  componentDidMount() {
+    const { user, deviceId } = this.props;
+
+    if (user && user.accessToken && !deviceId) {
+      console.log('mounting');
+      this.mountMusicPlayer(user.accessToken);
+    }
+  }
+
+  render() {
+    return (
+      <div id="content">
+        <Topbar />
+        <div id="music">
+          <SpotifyPlayer />
+        </div>
+        <Chat />
       </div>
-      <Chat />
-    </div>
-  );
-};
+    );
+  }
+}
 
 const mapState = state => {
   return {
