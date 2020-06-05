@@ -1,5 +1,4 @@
 import { playSong } from '../spotifyActions';
-import socket from '../socket';
 
 const SET_SONG = 'SET_SONG';
 export const setSong = (song, position_ms) => {
@@ -16,26 +15,49 @@ export const setPlayer = deviceId => {
   return { type: SET_DEVICE_ID, deviceId };
 };
 
-const defaultPlayer = { currentSong: {}, deviceId: null, startPosition: 0 };
+const TOGGLE_CONNECTION = 'TOGGLE_CONNECTION';
+export const toggleConnection = () => {
+  return { type: TOGGLE_CONNECTION };
+};
+
+const SET_VOLUME = 'SET_VOLUME';
+export const setVolume = volume => {
+  return { type: SET_VOLUME, volume };
+};
+
+const defaultPlayer = {
+  currentSong: {},
+  deviceId: null,
+  startPosition: 0,
+  volume: 0.5,
+  connected: false,
+};
 
 export default (player = defaultPlayer, action, state) => {
   switch (action.type) {
     case SET_DEVICE_ID:
-      socket.emit('get-current-song');
-      return { ...player, deviceId: action.deviceId };
+      return { ...player, deviceId: action.deviceId, connected: true };
 
     case NEW_SONG:
-      playSong(player, state.user, action.song);
+      if (player.connected) playSong(player, state.user, action.song);
 
       return { ...player, currentSong: action.song, startPosition: 0 };
     case SET_SONG:
-      playSong(player, state.user, action.song, action.position_ms);
+      if (player.connected) {
+        playSong(player, state.user, action.song, action.position_ms);
+      }
+
       return {
         ...player,
         currentSong: action.song,
         startPosition: action.position_ms,
       };
 
+    case TOGGLE_CONNECTION:
+      return { ...player, connected: !player.connected };
+
+    case SET_VOLUME:
+      return { ...player, volume: action.volume };
     default:
       return player;
   }
