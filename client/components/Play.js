@@ -1,11 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Visualizer from './Visualizer';
 import Topbar from './Topbar';
 import Chat from './Chat';
 import Controls from './Controls';
-
-import { connect } from 'react-redux';
 
 import { setPlayer } from '../store';
 import socket from '../socket';
@@ -74,6 +73,7 @@ class Play extends React.Component {
   }
 
   componentDidMount() {
+    socket.emit('get-current-song');
     const { user, deviceId } = this.props;
 
     if (user && user.accessToken && !deviceId) {
@@ -93,7 +93,7 @@ class Play extends React.Component {
 
     return (
       <div id="content">
-        <Topbar />
+        <Topbar spotifyPlayer={this.spotifyPlayer} />
         <div id="music">
           <Visualizer />
           {user && user.accessToken && (
