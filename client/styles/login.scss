@@ -1,0 +1,33 @@
+#login {
+  margin: 0 auto;
+  width: 60vh;
+  height: 80vh;
+  padding: 20vh 0;
+  text-align: center;
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    margin: 40px 0;
+    font-size: 60px;
+  }
+
+  button {
+    height: 35px;
+    width: 200px;
+    margin-top: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    cursor: pointer;
+
+    transition: background 0.2s;
+  }
+
+  button:hover {
+    background: #fff;
+    transition: background 0.2s;
+  }
+}
