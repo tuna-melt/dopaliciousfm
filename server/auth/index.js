@@ -39,7 +39,7 @@ const refreshUserToken = async user => {
 
 router.get('/me', async (req, res, next) => {
   try {
-    if (req.user && req.user._id) {
+    if (req.user && req.user.spotifyId) {
       if (req.user.tokenExpiration < Date.now()) {
         const user = await refreshUserToken(req.user);
         res.send(user);
@@ -47,11 +47,44 @@ router.get('/me', async (req, res, next) => {
         res.send(req.user);
       }
     } else {
-      res.send({});
+      res.send(req.user);
     }
   } catch (err) {
     next(err);
   }
+});
+
+router.post('/login', async (req, res, next) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({
+    email,
+  });
+
+  const isAuthed = user.comparePassword(password);
+
+  if (isAuthed === false) {
+    res.sendStatus(403);
+  } else {
+    req.login(user, err => (err ? next(err) : res.redirect('/auth/me')));
+  }
+});
+
+router.post('/signup', async (req, res, next) => {
+  const { email, name, password } = req.body;
+  let user = await User.findOne({ email });
+  if (user) {
+    res.sendStatus(404);
+  } else {
+    user = await User.create({ email, name, password });
+    req.login(user, err => (err ? next(err) : res.redirect('/auth/me')));
+  }
+});
+
+router.post('/logout', (req, res) => {
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
 });
 
 module.exports = router;
