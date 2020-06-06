@@ -1,3 +1,5 @@
+import '../styles/visualizer.scss';
+
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -6,9 +8,8 @@ import ProgressBar from './ProgressBar';
 
 const Vizualizer = props => {
   const { player } = props;
-
   return (
-    <div id="player">
+    <div id="visualizer">
       {player.currentSong && player.currentSong.name && (
         <React.Fragment>
           <TextSVG value={player.currentSong.name} />

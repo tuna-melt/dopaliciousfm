@@ -1,3 +1,5 @@
+import '../styles/chat.scss';
+
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
