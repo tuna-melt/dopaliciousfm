@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const SALT_WORK_FACTOR = 10;
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+  email: { type: String, required: true, index: { unique: true } },
+  password: String,
   name: String,
   spotifyId: String,
   imageURL: String,
@@ -18,6 +22,32 @@ UserSchema.statics.findOrCreate = function findOrCreate(condition, callback) {
       : self.create(condition, (err, result) => {
           return callback(err, result);
         });
+  });
+};
+
+UserSchema.pre('save', function(next) {
+  const user = this;
+  if (!user.isModified('password')) return next();
+
+  // generate a salt
+  bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
+    if (err) return next(err);
+
+    // hash the password using salt
+    bcrypt.hash(user.password, salt, (error, hash) => {
+      if (error) return next(error);
+
+      // override the cleartext password with the hashed one
+      user.password = hash;
+      next();
+    });
+  });
+});
+
+UserSchema.methods.comparePassword = function(candidatePassword) {
+  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+    if (err) return err;
+    return isMatch;
   });
 };
 

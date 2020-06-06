@@ -41,20 +41,20 @@ passport.use(
       clientSecret: process.env.SPOTIFYCLIENTSECRET,
       callbackURL: callback,
     },
-    function(accessToken, refreshToken, expires_in, profile, done) {
-      User.findOrCreate(
-        {
+    async function(accessToken, refreshToken, expires_in, profile, done) {
+      let user = await User.findOne({ email: profile._json.email });
+      if (!user) {
+        user = await User.create({
           name: profile.displayName,
+          email: profile._json.email,
           spotifyId: profile.id,
           imageURL: profile.photos[0],
           accessToken,
           refreshToken,
           tokenExpiration: expires_in * 1000 + Date.now(),
-        },
-        function(err, user) {
-          return done(err, user);
-        }
-      );
+        });
+      }
+      return done(null, user);
     }
   )
 );

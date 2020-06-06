@@ -1,15 +1,15 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-const Login = props => {
+const Login = () => {
   return (
     <div id="login">
-      <h1>DOPE.FM</h1>
+      <h1>DOPALISCIOUS</h1>
       <a href="/auth/spotify">
         <button type="button">Login With Spotify</button>
       </a>
-      <a href="/auth/applemusic">
-        <button type="button">Login With Apple Music</button>
+      <a href="/login">
+        <button type="button">Continue without audio</button>
       </a>
     </div>
   );

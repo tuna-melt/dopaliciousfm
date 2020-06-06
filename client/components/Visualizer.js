@@ -1,16 +1,36 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const Visualizer = props => {
+import TextSVG from './TextSVG';
+import ProgressBar from './ProgressBar';
+
+const Vizualizer = props => {
+  const { player } = props;
+
   return (
-    <React.Fragment>
-      <img
-        className="viz-img"
-        src="https://media.giphy.com/media/1J4X5chVxtBFS/giphy.gif"
-      />
-      <div className="viz-img"></div>
-      <div className="viz-img"></div>
-    </React.Fragment>
+    <div id="player">
+      {player.currentSong && player.currentSong.name && (
+        <React.Fragment>
+          <TextSVG value={player.currentSong.name} />
+          <h3>
+            by{' '}
+            {player.currentSong.artists
+              .map(artist => {
+                return artist.name;
+              })
+              .join(', ')}
+          </h3>
+          <ProgressBar />
+        </React.Fragment>
+      )}
+    </div>
   );
 };
 
-export default Visualizer;
+const mapState = state => {
+  return {
+    player: state.player,
+  };
+};
+
+export default connect(mapState, null)(Vizualizer);

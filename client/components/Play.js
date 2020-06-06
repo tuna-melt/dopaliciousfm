@@ -1,11 +1,13 @@
 import React from 'react';
-import SpotifyPlayer from './SpotifyPlayer';
-import Topbar from './Topbar';
-import Chat from './Chat';
-
 import { connect } from 'react-redux';
 
+import Visualizer from './Visualizer';
+import Topbar from './Topbar';
+import Chat from './Chat';
+import Controls from './Controls';
+
 import { setPlayer } from '../store';
+import socket from '../socket';
 
 class Play extends React.Component {
   constructor() {
@@ -21,6 +23,7 @@ class Play extends React.Component {
         getOAuthToken: cb => {
           cb(token);
         },
+        volume: 0.5,
       });
       // Error handling
       player.addListener('initialization_error', ({ message }) => {
@@ -41,10 +44,12 @@ class Play extends React.Component {
 
       // Ready
       player.addListener('ready', ({ device_id }) => {
-        console.log('player is ready');
         this.spotifyPlayer = player;
 
-        if (!this.props.deviceId) this.props.setDevice(device_id);
+        if (!this.props.deviceId || this.props.deviceId !== device_id) {
+          this.props.setDevice(device_id);
+        }
+        socket.emit('get-current-song');
       });
 
       // Not Ready
@@ -68,20 +73,32 @@ class Play extends React.Component {
   }
 
   componentDidMount() {
+    socket.emit('get-current-song');
     const { user, deviceId } = this.props;
 
     if (user && user.accessToken && !deviceId) {
-      console.log('mounting');
       this.mountMusicPlayer(user.accessToken);
     }
   }
 
   render() {
+    const { currentSong, user } = this.props;
+
+    if (currentSong.name) {
+      document.title =
+        currentSong.name +
+        ' - ' +
+        currentSong.artists.map(artist => artist.name).join(', ');
+    }
+
     return (
       <div id="content">
-        <Topbar />
+        <Topbar spotifyPlayer={this.spotifyPlayer} />
         <div id="music">
-          <SpotifyPlayer />
+          <Visualizer />
+          {user && user.accessToken && (
+            <Controls spotifyPlayer={this.spotifyPlayer} />
+          )}
         </div>
         <Chat />
       </div>
@@ -93,6 +110,7 @@ const mapState = state => {
   return {
     user: state.user,
     deviceId: state.player.deviceId,
+    currentSong: state.player.currentSong,
   };
 };
 
