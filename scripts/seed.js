@@ -13,12 +13,15 @@ const runSeed = async () => {
   const users = await User.create([
     {
       name: 'Dante',
+      email: 'dante@email.com',
     },
     {
       name: 'Diego',
+      email: 'diego@email.com',
     },
     {
       name: 'Luna',
+      email: 'luna@email.com',
     },
   ]);
 
