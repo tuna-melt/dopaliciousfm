@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import Warp from 'warpjs';
 
 const LineSVG = props => {
   const { progress, duration, width } = props;
@@ -10,17 +11,20 @@ const LineSVG = props => {
   const style = { fill: '#fff' };
 
   const sizeSVG = () => {
-    bottom.current.setAttribute('d', `M 0 0 H ${width} V ${5} H 0 Z`);
     const d = `M 0 0 H ${(width * progress) / duration} V ${5} H 0 Z`;
     top.current.setAttribute('d', d);
   };
+
+  useEffect(() => {
+    bottom.current.setAttribute('d', `M 0 0 H ${width} V ${5} H 0 Z`);
+  }, []);
 
   useEffect(sizeSVG, [progress]);
 
   return (
     <svg width={width} height={5} ref={svg}>
-      <path height={10} fill="#ffffffaa" ref={bottom} />
-      <path height={10} style={style} ref={top} />
+      <path height={5} fill="#ffffffaa" ref={bottom} />
+      <path height={5} style={style} ref={top} />
     </svg>
   );
 };
