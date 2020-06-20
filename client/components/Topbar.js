@@ -3,6 +3,9 @@ import '../styles/topbar.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserAstronaut } from '@fortawesome/free-solid-svg-icons';
+
 import { logout } from '../store';
 
 const Topbar = props => {
@@ -13,7 +16,14 @@ const Topbar = props => {
   return (
     <div id="topbar">
       <h1>DOPALISCIOUS</h1>
-      <a onClick={() => logoutUser()}>Logout</a>
+      <div className="dropDown-container">
+        <button type="button">
+          <FontAwesomeIcon icon={faUserAstronaut} size="2x" color="#fff" />
+        </button>
+        <ul className="dropDown" id="userOptions">
+          <li onClick={logoutUser}>Logout</li>
+        </ul>
+      </div>
     </div>
   );
 };
