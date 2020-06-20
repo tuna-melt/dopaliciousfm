@@ -40,7 +40,7 @@ const Chat = props => {
           </button>
         </div>
         <div className="content">
-          <Feed comments={comments} />
+          <Feed comments={comments} isVisible={isVisible} />
           <TextBar />
         </div>
       </div>
