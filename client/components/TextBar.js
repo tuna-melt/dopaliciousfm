@@ -27,7 +27,11 @@ class TextBar extends React.Component {
 
   render() {
     return (
-      <form id="new-comment-form" onSubmit={this.handleSubmit}>
+      <form
+        id="new-comment-form"
+        onSubmit={this.handleSubmit}
+        autoComplete="off"
+      >
         <div className="input-group input-group-lg">
           <input
             className="form-control"
@@ -36,6 +40,7 @@ class TextBar extends React.Component {
             placeholder="Say something nice..."
             value={this.state.comment}
             onChange={this.handleChange}
+            autoComplete="off"
           />
         </div>
       </form>
