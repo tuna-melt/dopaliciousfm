@@ -1,0 +1,30 @@
+button {
+  background-color: transparent;
+  border: none;
+  margin: 5px 0;
+
+  transition: transform 0.3s;
+}
+
+button:hover {
+  transition: transform 0.3s;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+button.visible:hover {
+  transform: none;
+}
+
+button.colapse {
+  color: #fff;
+}
+
+.visible button.colapse {
+  color: #888;
+}
+
+button:focus,
+input:focus {
+  outline: none;
+}

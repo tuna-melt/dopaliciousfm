@@ -1,3 +1,6 @@
+import '../styles/play.scss';
+import '../styles/buttons.scss';
+
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -12,6 +15,7 @@ import socket from '../socket';
 class Play extends React.Component {
   constructor() {
     super();
+
     this.spotifyPlayer = {};
     this.mountMusicPlayer = this.mountMusicPlayer.bind(this);
   }

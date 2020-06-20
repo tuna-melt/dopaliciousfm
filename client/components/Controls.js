@@ -26,7 +26,6 @@ const Controls = props => {
 
   const upVolume = () => {
     if (props.spotifyPlayer._options) {
-      console.log(props.player.volume);
       props.spotifyPlayer
         .setVolume(Math.min(props.player.volume + 0.1, 1))
         .then(() => {

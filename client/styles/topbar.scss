@@ -8,10 +8,58 @@
   justify-content: space-between;
   color: #ffffff;
 
+  padding: 0 40px;
+
+  .dropDown-container {
+    position: relative;
+
+    .dropDown {
+      position: absolute;
+      width: 150px;
+      right: 5px;
+      border-radius: 3px;
+      padding: 3px;
+      color: #888;
+      list-style-type: none;
+      margin: 0px;
+      background: #fff;
+
+      li {
+        font-size: 15px;
+        padding: 10px 13px;
+        text-align: right;
+      }
+
+      li:hover {
+        cursor: pointer;
+        background: rgb(235, 235, 235);
+      }
+
+      :last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .dropDown-container .dropDown {
+    transition: opacity 0.2s;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .dropDown-container:hover .dropDown {
+    transition: opacity 0.2s;
+    visibility: visible;
+    opacity: 1;
+  }
+
   h1 {
-    padding-left: 10px;
     font-family: paralucent, sans-serif;
     font-weight: 700;
     font-style: italic;
+  }
+
+  button {
+    transform: none;
   }
 }

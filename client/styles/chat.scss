@@ -1,37 +1,56 @@
+$CHAT_HEIGHT: 300px;
+$HEADER_HEIGHT: 30px;
+$TEXT_BLUE: #888888;
+$TEXT_DARK: #000000;
+
 #chat {
   position: absolute;
-  height: 100%;
-  width: 400px;
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.817);
-  top: 0;
-  right: -400px;
+  overflow: hidden;
 
-  transition: right 0.5s;
+  height: 22px;
+  width: 0;
+  bottom: 51.5px;
+  right: 46.5px;
+
+  border-radius: 3px;
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    width: 100%;
+    height: $HEADER_HEIGHT;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: 0;
+  }
+
+  .content {
+    z-index: 1;
+    height: $CHAT_HEIGHT - $HEADER_HEIGHT;
+    overflow: scroll;
+  }
 }
 
-#toggleChat {
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  left: -40px;
-  bottom: 100px;
-
-  background: rgba(255, 255, 255, 0.817);
-
-  border: none;
+#chat,
+#chat.visible {
+  transition-property: width, height;
+  transition-duration: 0.2s, 0.2s;
 }
 
 #chat.visible {
-  right: 0;
-  transition: right 0.5s;
+  height: $CHAT_HEIGHT;
+  width: 320px;
 }
 
 #feed {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  padding: 0 0 17px;
+  margin: $HEADER_HEIGHT 0 0 0;
   overflow: scroll;
 }
 
@@ -42,20 +61,28 @@
   overflow-wrap: anywhere;
   width: 100%;
   margin-left: 10px;
+
+  color: $TEXT_DARK;
 }
 
 #new-comment-form {
-  padding: 10px;
+  position: absolute;
+  bottom: 0;
   justify-self: flex-end;
   width: 100%;
-}
 
-#new-comment-form input {
-  border: none;
-  width: 100%;
-  height: 50px;
-  border-radius: 30px;
-  padding: 20px;
+  input {
+    border: none;
+    width: 100%;
+    height: 50px;
+    padding: 20px;
+
+    color: $TEXT_DARK;
+  }
+
+  input::placeholder {
+    color: $TEXT_BLUE;
+  }
 }
 
 .info {
@@ -73,4 +100,10 @@ img.icon {
   width: 35px;
   margin: 0 10px 0 0;
   border-radius: 100%;
+}
+
+#toggleChat {
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
 }
