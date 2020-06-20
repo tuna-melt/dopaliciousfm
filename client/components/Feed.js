@@ -10,6 +10,12 @@ const Feed = props => {
     messagesEnd.current.scrollIntoView({ behavior: 'smooth' });
   }, [comments]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      messagesEnd.current.scrollIntoView({ behavior: 'smooth' });
+    }, 200);
+  }, [props.isVisible]);
+
   return (
     <ul id="feed">
       {comments.map(comment => {
