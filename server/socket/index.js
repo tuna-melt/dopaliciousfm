@@ -29,7 +29,7 @@ module.exports = io => {
       const getTracks = {
         method: 'get',
         url:
-          'https://api.spotify.com/v1/playlists/49Y5Dfm5Zu27IkdQEottfs/tracks',
+          'https://api.spotify.com/v1/playlists/3PpF40P4BVCEMmliKN0g2W/tracks',
 
         headers: {
           Authorization: `Bearer ${access_token}`,

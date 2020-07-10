@@ -88,6 +88,7 @@ class Play extends React.Component {
   render() {
     const { currentSong, user } = this.props;
 
+    // Set title of page whenever song is rendered
     if (currentSong.name) {
       document.title =
         currentSong.name +

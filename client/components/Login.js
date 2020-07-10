@@ -1,9 +1,13 @@
 import '../styles/login.scss';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 const Login = () => {
+  useEffect(() => {
+    document.title = 'Dopaliscious';
+  }, []);
+
   return (
     <div id="login">
       <h1>DOPALISCIOUS</h1>
