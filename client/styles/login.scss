@@ -13,6 +13,8 @@
   h1 {
     margin: 40px 0;
     font-size: 60px;
+    font-family: paralucent, sans-serif;
+    text-shadow: 0 0 5px #fb3f6b56;
   }
 
   button {
@@ -29,5 +31,6 @@
   button:hover {
     background: #fff;
     transition: background 0.2s;
+    transform: scale(1);
   }
 }

@@ -1,3 +1,5 @@
+import '../styles/forms.scss';
+
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -14,6 +16,10 @@ class LoginForm extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    document.title = 'Dopaliscious';
   }
 
   handleSubmit(e) {
