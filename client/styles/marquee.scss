@@ -1,0 +1,77 @@
+$BLUE: #1405d9;
+$PINK: #fb3f6b;
+
+$BACK_COLOR: rgb(244, 244, 244);
+
+#marquee {
+  z-index: 1;
+  top: 0;
+
+  font-family: paralucent, sans-serif;
+  font-weight: 700;
+
+  width: 208px;
+  height: 700px;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  background: transparent;
+}
+
+.pixels {
+  width: 700px;
+  height: 208px;
+  background-image: linear-gradient($PINK, $BLUE);
+  position: absolute;
+
+  table {
+    border-collapse: collapse;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .pixel {
+    height: 15px;
+    width: 30px;
+
+    border: 3px solid #fff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cover-container {
+    width: 100%;
+    height: 208px;
+    position: absolute;
+    top: 0;
+
+    display: flex;
+
+    .cover {
+      background: $BACK_COLOR;
+      border: 3px solid $BACK_COLOR;
+      width: 20px;
+
+      animation: bounce;
+      animation-timing-function: ease-out;
+      animation-iteration-count: infinite;
+    }
+  }
+}
+
+@keyframes bounce {
+  0% {
+    height: 75%;
+  }
+  50% {
+    height: 0%;
+  }
+
+  100% {
+    height: 75%;
+  }
+}

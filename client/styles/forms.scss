@@ -1,17 +1,20 @@
-h2 {
-  width: 100%;
-}
+$BLUE: #1405d9;
+$PINK: #fb3f6b;
 
 .form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  width: 50vw;
-  height: 100%;
-  padding: 20vh;
+  text-align: left;
 
-  background: rgba(255, 255, 255, 0.331);
+  width: 50%;
+  padding: 15vh;
+
+  h2 {
+    width: 100%;
+    color: $BLUE;
+  }
 
   form,
   .form-input {
@@ -24,11 +27,14 @@ h2 {
   label,
   input {
     width: 100%;
+    color: $BLUE;
   }
 
   form {
-    height: 60vh;
+    width: 100%;
     position: relative;
+
+    border: 4px solid #fff;
   }
 
   .form-input {
@@ -49,7 +55,7 @@ h2 {
   }
 
   input:focus {
-    border: 1px solid #fb3f6b;
+    border: 1px solid $BLUE;
     outline: none;
 
     transition: border 0.3s;
@@ -58,7 +64,7 @@ h2 {
   a {
     align-self: start;
     padding: 15px 0;
-    color: #fb3f6b;
+    color: $BLUE;
     text-decoration: none;
     font-weight: 600;
     font-size: 13px;
@@ -78,7 +84,7 @@ h2 {
     width: 120px;
 
     border: none;
-    background-color: #fb3f6b;
+    background-color: $BLUE;
     color: #fff;
     font-size: 14px;
     border-radius: 2px;
@@ -87,7 +93,7 @@ h2 {
   }
 
   button:hover {
-    background-color: #fb3f6b;
+    background-color: $BLUE;
     transition: background-color 0.2s;
   }
 }
