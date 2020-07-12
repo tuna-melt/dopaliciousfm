@@ -1,7 +1,7 @@
 $CHAT_HEIGHT: 300px;
 $HEADER_HEIGHT: 30px;
-$TEXT_BLUE: #888888;
-$TEXT_DARK: #000000;
+$TEXT_BLUE: #1405d9;
+$TEXT_DARK: #1405d9;
 
 #chat {
   position: absolute;
@@ -13,20 +13,24 @@ $TEXT_DARK: #000000;
   height: 22px;
   width: 0;
   bottom: 51.5px;
-  right: 46.5px;
+  right: 45px;
 
   border-radius: 3px;
 
   .header {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     z-index: 2;
     width: 100%;
+    padding-right: 5px;
     height: $HEADER_HEIGHT;
     background-color: rgb(255, 255, 255);
-    position: absolute;
     top: 0;
+
+    button:hover {
+      transform: none;
+    }
   }
 
   .content {
@@ -49,8 +53,8 @@ $TEXT_DARK: #000000;
 
 #feed {
   list-style-type: none;
-  padding: 0 0 17px;
-  margin: $HEADER_HEIGHT 0 0 0;
+  padding: 0 0;
+  margin: 0;
   overflow: scroll;
 }
 
@@ -60,13 +64,13 @@ $TEXT_DARK: #000000;
   overflow: hidden;
   overflow-wrap: anywhere;
   width: 100%;
-  margin-left: 10px;
+
+  padding: 0px 10px;
 
   color: $TEXT_DARK;
 }
 
 #new-comment-form {
-  position: absolute;
   bottom: 0;
   justify-self: flex-end;
   width: 100%;

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentAlt, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faCommentAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import Feed from './Feed';
 import TextBar from './TextBar';
@@ -36,13 +36,13 @@ const Chat = props => {
             className="colapse"
             onClick={() => setVisible(!isVisible)}
           >
-            <FontAwesomeIcon icon={faAngleDown} size="2x" />
+            <FontAwesomeIcon icon={faTimes} size="1x" />
           </button>
         </div>
         <div className="content">
           <Feed comments={comments} isVisible={isVisible} />
-          <TextBar />
         </div>
+        <TextBar />
       </div>
     </React.Fragment>
   );
