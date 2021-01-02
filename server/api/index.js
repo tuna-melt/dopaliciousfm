@@ -1,5 +1,7 @@
-const router = require('express').Router();
+const router = require("express").Router()
 
-router.use('/comments', require('./comments'));
+router.use("/comments", require("./comments"))
 
-module.exports = router;
+router.use("/playlists", require("./playlists"))
+
+module.exports = router
