@@ -5,28 +5,29 @@ $BACK_COLOR: rgb(244, 244, 244);
 
 #marquee {
   z-index: 1;
-  top: 0;
 
   font-family: paralucent, sans-serif;
   font-weight: 700;
-
-  width: 208px;
-  height: 700px;
+  height: 208px;
 
   position: relative;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-
   background: transparent;
+
+  h1 {
+    bottom: 0;
+    font-size: 80px;
+    color: $BLUE;
+    font-family: paralucent, sans-serif;
+  }
 }
 
 .pixels {
   width: 700px;
   height: 208px;
   background-image: linear-gradient($PINK, $BLUE);
-  position: absolute;
+  position: relative;
+  margin: 0 auto;
 
   table {
     border-collapse: collapse;
@@ -55,23 +56,13 @@ $BACK_COLOR: rgb(244, 244, 244);
       background: $BACK_COLOR;
       border: 3px solid $BACK_COLOR;
       width: 20px;
-
-      animation: bounce;
-      animation-timing-function: ease-out;
-      animation-iteration-count: infinite;
+      height: 0%;
     }
   }
-}
 
-@keyframes bounce {
-  0% {
-    height: 75%;
-  }
-  50% {
-    height: 0%;
-  }
-
-  100% {
-    height: 75%;
+  .cover-container.bounce .cover {
+    height: 100% !important;
+    transition: height 0.7s !important;
+    transition-timing-function: ease-out !important;
   }
 }

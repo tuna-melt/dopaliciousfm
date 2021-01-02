@@ -8,8 +8,9 @@ $PINK: #fb3f6b;
 
   text-align: left;
 
-  width: 50%;
+  width: 100%;
   padding: 15vh;
+  padding-top: 35px;
 
   h2 {
     width: 100%;
@@ -32,6 +33,7 @@ $PINK: #fb3f6b;
 
   form {
     width: 100%;
+    height: 40vh;
     position: relative;
 
     border: 4px solid #fff;

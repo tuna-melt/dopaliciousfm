@@ -1,16 +1,18 @@
 import '../styles/login.scss';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import Marquee from './Marquee';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
-const Login = props => {
+const Login = (props) => {
   useEffect(() => {
     document.title = 'Dopaliscious';
   }, []);
+
+  const [bounce, setBounce] = useState(false);
 
   const url = props.history.location.pathname;
 
@@ -22,11 +24,12 @@ const Login = props => {
   } else {
     component = (
       <React.Fragment>
-        <div className="form-container">
+        <div className="buttons">
+          <h1>DOPALISCIOUS</h1>
           <a href="/auth/spotify">
             <button type="button">Login With Spotify</button>
           </a>
-          <a href="/login">
+          <a onClick={() => props.history.push('/login')}>
             <button type="button">Continue without audio</button>
           </a>
         </div>
@@ -36,14 +39,17 @@ const Login = props => {
 
   return (
     <div id="login">
-      <div className="container">
-        <Marquee />
+      <div
+        className="container left"
+        onKeyDown={() => setBounce(true)}
+        onKeyUp={() => setBounce(false)}
+        onMouseDown={() => setBounce(true)}
+        onMouseUp={() => setBounce(false)}
+      >
+        {/* {(url === '/login' || url === '/signup') && <Marquee bounce={bounce} />} */}
         {component}
       </div>
-      <div
-        className="container"
-        style={{ background: `url('dope-pink.jpg')` }}
-      />
+      <img src="login.jpg" className="background" />
     </div>
   );
 };

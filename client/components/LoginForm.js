@@ -44,7 +44,6 @@ class LoginForm extends React.Component {
 
     return (
       <div className="form-container">
-        <h2>Welcome to *****</h2>
         <form onSubmit={this.handleSubmit} name="login">
           <div className="form-input">
             <label htmlFor="name">
